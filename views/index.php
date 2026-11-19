@@ -72,3 +72,23 @@ function e($valor): string {
                 $classe = $item["tipo"] === "Gerente" ? "Gerente" : "FuncionarioComum";
                 $objeto = new $classe($item["nome"], $item["email"], (float)$item["salario"]);
             ?>
+              <tr>
+                    <td><?= e($item["nome"]) ?></td>
+                    <td><?= e($item["email"]) ?></td>
+                    <td><span class="tipo"><?= e($item["tipo"]) ?></span></td>
+                    <td>R$ <?= number_format((float)$item["salario"], 2, ",", ".") ?></td>
+                    <td>R$ <?= number_format($objeto->calcularBonus(), 2, ",", ".") ?></td>
+                    <td><a class="excluir" href="index.php?excluir=<?= (int)$item["id"] ?>">Excluir</a></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        </div>
+        <?php endif; ?>
+    </section>
+    <?php endif; ?>
+    <footer>Projeto acadêmico • PHP, POO, MVC e MySQL</footer>
+</main>
+</body>
+</html>
+
