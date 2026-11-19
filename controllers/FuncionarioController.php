@@ -43,3 +43,14 @@ class FuncionarioController {
         $registro = $stmt->fetch();
         return $registro ?: null;
     }
+
+    
+  public function excluir(int $id): array {
+        if ($id <= 0 || !$this->buscar($id)) {
+            return ["mensagem" => "Funcionário não encontrado."];
+        }
+        $stmt = $this->pdo->prepare("DELETE FROM funcionarios WHERE id = ?");
+        $stmt->execute([$id]);
+        return ["mensagem" => "Funcionário excluído com sucesso!"];
+    }
+}
