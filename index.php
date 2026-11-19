@@ -21,3 +21,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["acao"] ?? "") === "iniciar
     header("Location: index.php");
     exit;
 }
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["acao"] ?? "") === "encerrar_sessao") {
+    session_unset();
+    session_destroy();
+    header("Location: index.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["acao"] ?? "") === "cadastrar") {
+    $resultado = $controller->cadastrar($_POST);
+    $_SESSION["mensagem"] = $resultado["mensagem"];
+    header("Location: index.php");
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && ($_POST["acao"] ?? "") === "excluir") {
+    $resultado = $controller->excluir((int)($_POST["id"] ?? 0));
+    $_SESSION["mensagem"] = $resultado["mensagem"];
+    header("Location: index.php");
+    exit;
+}
+
+$funcionarios = $controller->listar();
+$excluirId = filter_input(INPUT_GET, "excluir", FILTER_VALIDATE_INT);
+$funcionarioExcluir = $excluirId ? $controller->buscar($excluirId) : null;
+require_once __DIR__ . "/views/index.php";
