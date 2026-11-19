@@ -29,3 +29,17 @@ class FuncionarioController {
             ":salario" => $funcionario->getSalario(),
             ":tipo" => $tipo
         ]);
+
+        return ["mensagem" => "Funcionário cadastrado com sucesso!"];
+    }
+
+    public function listar(): array {
+        return $this->pdo->query("SELECT * FROM funcionarios ORDER BY id DESC")->fetchAll();
+    }
+
+    public function buscar(int $id): ?array {
+        $stmt = $this->pdo->prepare("SELECT * FROM funcionarios WHERE id = ?");
+        $stmt->execute([$id]);
+        $registro = $stmt->fetch();
+        return $registro ?: null;
+    }
