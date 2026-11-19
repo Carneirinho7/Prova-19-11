@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/config/conexao.php";
+$pdo = require __DIR__ . "/config/conexao.php";
 require_once __DIR__ . "/models/Funcionario.php";
 require_once __DIR__ . "/models/FuncionarioComum.php";
 require_once __DIR__ . "/models/Gerente.php";

@@ -7,6 +7,7 @@ try {
     );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    return $pdo;
 } catch (PDOException $erro) {
     die("Não foi possível conectar ao banco de dados.");
 }
